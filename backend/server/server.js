@@ -4,19 +4,13 @@ import sql from 'mssql';
 import bcrypt from 'bcrypt';
 import fs from 'fs';
 
-const config = JSON.parse(fs.readFileSync('../../frontend/db_config.json', 'utf-8'));
 
-const connection = {
-    user: config.user,
-    password: config.password,
-    server: config.server,
-    database: config.database,
-    options: {
-        encrypt: true,
-        trustServerCertificate: true
-    }
+const connection =  {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME
 };
-
 
 const app = express();
 app.use(cors());
