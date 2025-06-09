@@ -7,7 +7,7 @@
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build": "vite build && cp public/_redirects dist/_redirects"
+    "build": "vite build && xcopy public\\_redirects dist\\_redirects /Y /Q"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
