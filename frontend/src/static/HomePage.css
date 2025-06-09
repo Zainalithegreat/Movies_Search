@@ -64,3 +64,24 @@
 .empty-state button:hover {
     background-color: #0097a7;
 }
+.page-number{
+    margin: 0;
+}
+
+.page-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.main-page-container{
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.search-clear{
+    align-items: center;
+    gap: 0.5rem;
+}
+

@@ -66,6 +66,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
+.main-button:hover{
+    background-color: #0069D9;
+}
 
 .button-link {
     text-align: center;
@@ -89,5 +92,16 @@
 .data-entry-form {
     display: flex;
     flex-direction: column;
+}
+
+.logout-button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 

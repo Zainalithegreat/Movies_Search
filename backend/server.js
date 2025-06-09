@@ -4,28 +4,26 @@ import sql from 'mssql';
 import bcrypt from 'bcrypt';
 import fs from 'fs';
 
-let pool;
-
 const config = JSON.parse(fs.readFileSync('../frontend/db_config.json', 'utf-8'));
 
-async function connectToDatabase() {
-    try {
-        const pool = await sql.connect(config);
-        const result = await pool.request().query('SELECT GETDATE() AS time');
-        console.log(result.recordset);
-    } catch (err) {
-        console.error('Connection error:', err);
+const connection = {
+    user: config.user,
+    password: config.password,
+    server: config.server,
+    database: config.database,
+    options: {
+        encrypt: true,
+        trustServerCertificate: true
     }
-}
+};
 
-connectToDatabase();
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // Connect to DB once on startup
-sql.connect(config).then((p) => {
-    pool = p
+sql.connect(connection).then((p) => {
     console.log("✅ Connected to SQL Server");
 }).catch(err => {
     console.error("❌ Failed to connect:", err.message);
@@ -108,7 +106,7 @@ app.post("/remove", async (req, res) => {
 })
 
 async function removeFavorites(UserID, movies) {
-    const request = pool.request()
+    const request = new sql.Request()
     request.input('title', sql.VarChar, movies);
     request.input('UserID', sql.INT, UserID)
 
@@ -121,7 +119,7 @@ async function removeFavorites(UserID, movies) {
 }
 
 async function checkFavorite(movieTitle, UserID){
-    const request = pool.request()
+    const request = new sql.Request()
     request.input('title', sql.VarChar, movieTitle);
     request.input('UserID', sql.INT, UserID)
 
@@ -141,7 +139,7 @@ async function checkFavorite(movieTitle, UserID){
 }
 
 async function retrieveFavorites(UserID) {
-    const request = pool.request()
+    const request = new sql.Request()
     request.input('UserID', sql.INT, UserID)
 
     const result = await request.query(`
@@ -155,7 +153,7 @@ async function retrieveFavorites(UserID) {
 }
 
 async function getUserID(username){
-    const request = pool.request()
+    const request = new sql.Request()
     request.input('username', sql.VarChar, username);
 
     const result = await request.query(`
@@ -170,7 +168,7 @@ async function getUserID(username){
 }
 
 async function insertFavorite(UserID, movies, movieTitle, movieRelease,  moviePath){
-    const request = pool.request()
+    const request = new sql.Request()
     request.input('UserID', sql.INT, UserID);
     request.input('MovieID', sql.INT, movies);
     request.input('title', sql.VarChar, movieTitle);
@@ -186,7 +184,7 @@ async function insertFavorite(UserID, movies, movieTitle, movieRelease,  moviePa
 }
 
 async function fetchUser(username, password) {
-    const request = pool.request()
+    const request = new sql.Request()
     request.input('username', sql.VarChar, username);
 
     const result = await request.query(`
@@ -204,7 +202,7 @@ async function fetchUser(username, password) {
 }
 
 async function checkUser(username){
-    const request = pool.request()
+    const request = new sql.Request()
     request.input('username', sql.VarChar, username);
 
     const result = await request.query(`
@@ -228,7 +226,7 @@ async function insertUser(name,email,username,password) {
     console.log("password: ", password);
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const request = pool.request()
+    const request = new sql.Request()
 
     request.input('name', sql.VarChar, name);
     request.input('email', sql.VarChar, email);
