@@ -1,5 +1,3 @@
-import config from '../../db_config.json' assert { type: 'json' };
-
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
