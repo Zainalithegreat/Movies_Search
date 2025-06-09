@@ -8,6 +8,7 @@ function Home(){
     const [totalMovies, setTotalMovies] = useState([]);
     const [page, setPage] = useState(1);
     const [allMoveies, setAllMoveies] = useState([]);
+    const API = import.meta.env.VITE_API_BASE_URL;
 
     // Fetch movies when component loads
     useEffect(() => {
@@ -93,6 +94,7 @@ function Home(){
 
 function Wrapper({totalMovies}) {
     const username = localStorage.getItem("username");
+    const API = import.meta.env.VITE_API_BASE_URL;
 
     async function addFavorite(movie) {
         const movieID = movie.id;
@@ -100,7 +102,7 @@ function Wrapper({totalMovies}) {
         const movieRelease = movie.release_date
         const moviePath = movie.poster_path
         console.log(movie);
-        const response = await fetch('http://localhost:3001/home', {
+        const response = await fetch(`${API}/home`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({movies: movieID, movieTitle, movieRelease, moviePath, username })

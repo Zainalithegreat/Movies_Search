@@ -6,13 +6,14 @@ function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const API = import.meta.env.VITE_API_BASE_URL;
 
 
     async function Logging(e) {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch(`${API}/login`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username: email, password })

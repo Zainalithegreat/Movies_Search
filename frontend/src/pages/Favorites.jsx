@@ -8,6 +8,7 @@ function Favorites() {
     const username = localStorage.getItem("username");
     const [favorites, setFavorites] = useState([]); // ✅ state to trigger re-render
     const navigate = useNavigate();
+    const API = import.meta.env.VITE_API_BASE_URL;
 
     useEffect(() => {
         async function fetchFavorites() {
@@ -36,7 +37,7 @@ function Favorites() {
     async function removeFavorite(movie) {
         const username = localStorage.getItem("username");
         const title = movie.title;
-        const response  = await fetch('http://localhost:3001/remove', {
+        const response = await fetch(`${API}/remove`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ movies: title, username })

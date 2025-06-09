@@ -10,6 +10,7 @@ function Register(){
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const API = import.meta.env.VITE_API_BASE_URL;
 
     function emailValidation(email) {
         // Regex from the original Python version
@@ -69,7 +70,7 @@ function Register(){
         setError("")
 
         try {
-            const response = await fetch('http://localhost:3001/register', {
+            const response = await fetch(`${API}/register`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user: name, email, username, password })
