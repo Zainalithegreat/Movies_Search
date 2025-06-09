@@ -80,7 +80,7 @@ function Register(){
                 const data = await response.json();
                 console.log(data);
                 localStorage.setItem("username", data.user.username);
-                navigate('/home'); // OR use state to show <Home />
+                navigate('/login'); // OR use state to show <Home />
             } else {
                 const err = await response.json();
                 alert("❌ " + err.message);
