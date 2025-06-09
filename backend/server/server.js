@@ -4,7 +4,7 @@ import sql from 'mssql';
 import bcrypt from 'bcrypt';
 import fs from 'fs';
 
-const config = JSON.parse(fs.readFileSync('../frontend/db_config.json', 'utf-8'));
+const config = JSON.parse(fs.readFileSync('../../frontend/db_config.json', 'utf-8'));
 
 const connection = {
     user: config.user,
