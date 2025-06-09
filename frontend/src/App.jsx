@@ -13,7 +13,7 @@ function App() {
             <>
             <NavBar />
             <main className="main-content">
-                <Routes>
+                <Routes basename="/Movies_Search">
 
                     <Route element={<PrivateRoute />}>
                         <Route path="/favorites" element={<Favorites />} />
