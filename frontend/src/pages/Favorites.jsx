@@ -12,7 +12,7 @@ function Favorites() {
 
     useEffect(() => {
         async function fetchFavorites() {
-            const response = await fetch('http://localhost:3001/favorites', {
+            const response = await fetch(`${API}/favorites`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user: username })
