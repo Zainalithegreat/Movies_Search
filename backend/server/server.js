@@ -12,7 +12,7 @@ const connection =  {
     database: process.env.DB_NAME,
     options: {
         encrypt: true,
-        trustServerCertificate: true   // ✅ THIS FIXES THE ERROR
+        trustServerCertificate: true   
     }
 };
 
@@ -22,7 +22,7 @@ app.use(express.json());
 
 // Connect to DB once on startup
 sql.connect(connection).then((p) => {
-    console.log("✅ Connected to SQL Server");
+    console.log(" Connected to SQL Server");
 }).catch(err => {
     console.error("❌ Failed to connect:", err.message);
 });
